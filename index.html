@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {background-color:lightgrey;
+	padding: 30px;
+	}
+  h1   {color:purple;
+	font-family: arial;
+	}
+  h2   {color: black;
+	font-family: arial;
+	}
+	
+  p    {color:black;
+	font-family: arial;
+	}
+  button {font-size: 100%;
+	}
+</style>
+</head>
+<body>
+
+<h1> bastardizely </h1>
+<p> Ruin a perfectly good word. Make a startup. </p> <br>
+
+<p>Put a word here:
+<input type="text" id="rootWord" value="word"> <br><br>
+Bastardization level:
+<input type="range" id="level" min="1" max="3" value="1"> <br><br>
+
+<button onclick="bastardize()">Bastardize!</button> <br> <br><br></p>
+<p>Your new startup is: </p>
+
+<h2 id="result"></h2>
+
+<script>
+function bastardize() {
+	var rootEntry = document.getElementById("rootWord").value;
+	var bastardLevel = document.getElementById("level").value;
+	var nounSuffixes = ["age", "ality", "archy", "arium", "omics", "philia", "ism", "ation", "ity"];
+	var verbSuffixes = ["ify", "esce", "iate", "ize",];
+	var adverbSuffixes = ["ly", "ibly"]
+	var adjectiveSuffixes = ["uous", "ward", "oid", "ite", "able", "ative", "esque", "ful", "ish"]
+	var allSuffixes = nounSuffixes.concat(verbSuffixes, adverbSuffixes, adjectiveSuffixes);
+	allSuffixes.push("dummy");
+	var i = 0;
+	var totalSuffix =""
+	do {
+		var suffixId = Math.floor(Math.random()*(allSuffixes.length-1)) // chooses random index to grab suffix from array
+		var newSuffix = allSuffixes[suffixId];				// grabs new suffix
+		var totalSuffix = totalSuffix.concat(newSuffix);		// adds new suffix to total suffix
+		allSuffixes.splice(suffixId,1);					// removes suffix we just used from array so that it's not used again
+		
+		i++;
+	}
+	while (i < bastardLevel)
+	var res = rootEntry.concat(totalSuffix);
+	document.getElementById("result").innerHTML = res;
+}
+</script>
+</body>
+</html>
+
